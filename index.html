@@ -7,6 +7,24 @@
   </head>
   <body>
     <main>
+      <h1>Etch-a-Sketch</h1>
+      <div class="selections">
+        <div class="color-input">
+          <label for="color">Color: </label>
+          <input type="color" id="color" />
+        </div>
+        <div class="modes">
+          <button>Color</button>
+          <button>Hover</button>
+          <button>RGB</button>
+          <button>Eraser</button>
+        </div>
+        <div class="extra">
+          <input type="range" id="range" min="1" max="100" />
+          <button>Clear</button>
+          <button>Hide grid</button>
+        </div>
+      </div>
       <div class="divgrid"></div>
     </main>
     <script src="./scripts/script.js"></script>
