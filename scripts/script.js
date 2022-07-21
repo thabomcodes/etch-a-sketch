@@ -34,3 +34,37 @@ function createGrid(x) {
         grid.appendChild(gridRow);
     }
 }
+
+var mode;
+//============= EVENT LISTENERS ================
+const modeButtons = document.querySelectorAll(".modes button");
+function removeActive() {
+    modeButtons.forEach((button) => {
+        button.className = "";
+    })
+}
+colorModeBtn.addEventListener('click', function () {
+    removeActive()
+    this.className = "active";
+    mode = "color";
+});
+hoverModeBtn.addEventListener('click', function () {
+    removeActive();
+    this.className = "active";
+    mode = "hover";
+});
+rgbModeBtn.addEventListener('click', function () {
+    removeActive()
+    this.className = "active";
+    mode = "rgb";
+});
+darkenModeBtn.addEventListener('click', function () {
+    removeActive()
+    this.className = "active";
+    mode = "darken";
+});
+eraserModeBtn.addEventListener('click', function () {
+    removeActive()
+    this.className = "active";
+    mode = "eraser";
+});
