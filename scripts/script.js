@@ -15,7 +15,6 @@ const hideGridBtn = document.querySelector("#hide-grid");
 // grid
 const grid = document.querySelector(".divgrid");
 var mode = "color";
-var mode2 = "";
 
 function createGrid(x, cellBorder = true) {
     // remove rows if any
@@ -41,10 +40,12 @@ function createGrid(x, cellBorder = true) {
     var cells = document.querySelectorAll(".gridcell");
     // EFFECTS
     for (const cell of cells) {
-        cell.addEventListener("hover", () => {
-            cell.style.backgroundColor = color.value;
+        if (mode == "color") {
+            cell.addEventListener("mouseover", () => {
+                cell.style.backgroundColor = color.value;
+            });
+        }
 
-        });
     };
 }
 createGrid(range.value);
