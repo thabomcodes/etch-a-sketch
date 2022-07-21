@@ -16,11 +16,55 @@ const hideGridBtn = document.querySelector("#hide-grid");
 const grid = document.querySelector(".divgrid");
 var mode = "color";
 
-function draw(div) {
-    if (mode == "color") div.style.backgroundColor = color.value;
-    else if (mode == "rgb") div.style.backgroundColor = "#" + Math.floor(Math.random() * 16777215).toString(16);
+function getRandomColor() {
+    var letters = '0123456789ABCDEF';
+    var col = '#';
+    for (var i = 0; i < 6; i++) {
+        col += letters[Math.floor(Math.random() * 16)];
+    }
+    return col;
 }
 
+grid10percentColor = []
+function draw(div) {
+    if (mode == "color") {
+        const r = parseInt(color.value.substr(1, 2), 16)
+        const g = parseInt(color.value.substr(3, 2), 16)
+        const b = parseInt(color.value.substr(5, 2), 16)
+        div.style.backgroundColor = `rgb(${r}, ${g}, ${b})`;
+        var cellColor = [r, g, b];
+        var percent10 = [];
+        for (let i = 0; i < 3; i++) {
+            percent10[i] = Math.round(cellColor[i] * 0.1);
+        }
+        grid10percentColor[parseInt(div.id)] = percent10;
+    }
+    else if (mode == "rgb") {
+        div.style.backgroundColor = getRandomColor();
+    }
+    else {
+        if (div.style.backgroundColor == "") {
+            div.style.backgroundColor = getRandomColor();
+            var cellColor = div.style.backgroundColor.match(/([0-9]+)/g).map(Number);
+            var percent10 = [];
+            for (let i = 0; i < 3; i++) {
+                percent10[i] = Math.round(cellColor[i] * 0.1);
+            }
+            grid10percentColor[parseInt(div.id)] = percent10;
+        } else {
+            var cellColor = div.style.backgroundColor;
+            console.log(cellColor + " " + div.id);
+            var rgb = cellColor.match(/([0-9]+)/g).map(Number);
+            let rgb10 = grid10percentColor[parseInt(div.id)];
+            console.log(rgb)
+            let r = rgb[0] - rgb10[0];
+            let g = rgb[1] - rgb10[1];
+            let b = rgb[2] - rgb10[2];
+            div.style.backgroundColor = `rgb(${r}, ${g}, ${b})`;
+            console.log(div.style.backgroundColor);
+        }
+    }
+}
 function createGrid(x, cellBorder = true) {
     // remove rows if any
     const rows = document.querySelectorAll(".gridrow");
@@ -28,17 +72,21 @@ function createGrid(x, cellBorder = true) {
         grid.removeChild(row);
     });
     // create new divs
+    let count = 1;
     for (let i = 0; i < x; i++) {
         const gridRow = document.createElement("div");
         gridRow.className = "gridrow";
         for (let j = 0; j < x; j++) {
             const gridCell = document.createElement("div");
             gridCell.className = "gridcell";
+            gridCell.id = `${count}`
+            grid10percentColor[parseInt(gridCell.id)] = [];
             gridCell.style.width = `${grid.clientWidth / x}px`;
             gridCell.style.height = `${grid.clientHeight / x}px`;
             if (cellBorder) gridCell.style.border = "1px solid black";
             else gridCell.style.border = "none";
             gridRow.appendChild(gridCell);
+            count++;
         }
         grid.appendChild(gridRow);
     }
