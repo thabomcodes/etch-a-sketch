@@ -1,9 +1,11 @@
 .divgrid {
   display: flex;
+  flex-direction: column;
+  width: 400px;
+  height: 400px;
 }
 .gridrow {
   display: flex;
-  flex-direction: column;
 }
 .gridcell {
   border: 1px solid black;
