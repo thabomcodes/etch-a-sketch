@@ -16,6 +16,11 @@ const hideGridBtn = document.querySelector("#hide-grid");
 const grid = document.querySelector(".divgrid");
 var mode = "color";
 
+function draw(div) {
+    if (mode == "color") div.style.backgroundColor = color.value;
+    else if (mode == "rgb") div.style.backgroundColor = "#" + Math.floor(Math.random() * 16777215).toString(16);
+}
+
 function createGrid(x, cellBorder = true) {
     // remove rows if any
     const rows = document.querySelectorAll(".gridrow");
@@ -40,13 +45,8 @@ function createGrid(x, cellBorder = true) {
     var cells = document.querySelectorAll(".gridcell");
     // EFFECTS
     for (const cell of cells) {
-        if (mode == "color") {
-            cell.addEventListener("mouseover", () => {
-                cell.style.backgroundColor = color.value;
-            });
-        }
-
-    };
+        cell.addEventListener("mouseover", () => draw(cell), false);
+    }
 }
 createGrid(range.value);
 
@@ -62,21 +62,41 @@ colorModeBtn.addEventListener('click', function () {
     removeActive()
     this.className = "active";
     mode = "color";
+    // EFFECTS
+    var cells = document.querySelectorAll(".gridcell");
+    for (const cell of cells) {
+        cell.addEventListener("mouseover", () => draw(cell), false);
+    }
 });
 rgbModeBtn.addEventListener('click', function () {
     removeActive();
     this.className = "active";
     mode = "rgb";
+    var cells = document.querySelectorAll(".gridcell");
+    // EFFECTS
+    for (const cell of cells) {
+        cell.addEventListener("mouseover", () => draw(cell), false);
+    }
 });
 darkenModeBtn.addEventListener('click', function () {
     removeActive();
     this.className = "active";
     mode = "darken";
+    var cells = document.querySelectorAll(".gridcell");
+    // EFFECTS
+    for (const cell of cells) {
+        cell.addEventListener("mouseover", () => draw(cell), false);
+    }
 });
 eraserModeBtn.addEventListener('click', function () {
     removeActive();
     this.className = "active";
     mode = "eraser";
+    var cells = document.querySelectorAll(".gridcell");
+    // EFFECTS
+    for (const cell of cells) {
+        cell.addEventListener("mouseover", () => draw(cell), false);
+    }
 });
 // range
 range.addEventListener('input', () => {
@@ -104,5 +124,6 @@ hideGridBtn.addEventListener('click', () => {
         });
     }
 });
+
 
 
