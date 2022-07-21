@@ -2,7 +2,6 @@
 const color = document.querySelector("input[type=color");
 // modes
 const colorModeBtn = document.querySelector("#color-mode");
-const hoverModeBtn = document.querySelector("#hover-mode");
 const rgbModeBtn = document.querySelector("#rgb-mode");
 const darkenModeBtn = document.querySelector("#darken-mode");
 const eraserModeBtn = document.querySelector("#eraser-mode");
@@ -15,8 +14,10 @@ const clearBtn = document.querySelector("#clear");
 const hideGridBtn = document.querySelector("#hide-grid");
 // grid
 const grid = document.querySelector(".divgrid");
+var mode = "color";
+var mode2 = "";
 
-function createGrid(x) {
+function createGrid(x, cellBorder = true) {
     // remove rows if any
     const rows = document.querySelectorAll(".gridrow");
     rows.forEach((row) => {
@@ -31,19 +32,29 @@ function createGrid(x) {
             gridCell.className = "gridcell";
             gridCell.style.width = `${grid.clientWidth / x}px`;
             gridCell.style.height = `${grid.clientHeight / x}px`;
+            if (cellBorder) gridCell.style.border = "1px solid black";
+            else gridCell.style.border = "none";
             gridRow.appendChild(gridCell);
         }
         grid.appendChild(gridRow);
     }
+    var cells = document.querySelectorAll(".gridcell");
+    // EFFECTS
+    for (const cell of cells) {
+        cell.addEventListener("hover", () => {
+            cell.style.backgroundColor = color.value;
+
+        });
+    };
 }
 createGrid(range.value);
-var mode;
+
 //============= EVENT LISTENERS ================
-const modeButtons = document.querySelectorAll(".modes button");
 function removeActive() {
-    modeButtons.forEach((button) => {
+    document.querySelectorAll(".modes button").forEach((button) => {
         button.className = "";
-    })
+        mode = "";
+    });
 }
 // buttons
 colorModeBtn.addEventListener('click', function () {
@@ -51,23 +62,18 @@ colorModeBtn.addEventListener('click', function () {
     this.className = "active";
     mode = "color";
 });
-hoverModeBtn.addEventListener('click', function () {
-    removeActive();
-    this.className = "active";
-    mode = "hover";
-});
 rgbModeBtn.addEventListener('click', function () {
-    removeActive()
+    removeActive();
     this.className = "active";
     mode = "rgb";
 });
 darkenModeBtn.addEventListener('click', function () {
-    removeActive()
+    removeActive();
     this.className = "active";
     mode = "darken";
 });
 eraserModeBtn.addEventListener('click', function () {
-    removeActive()
+    removeActive();
     this.className = "active";
     mode = "eraser";
 });
@@ -75,17 +81,27 @@ eraserModeBtn.addEventListener('click', function () {
 range.addEventListener('input', () => {
     gridSizes.forEach((size) => {
         size.innerText = `${range.value}`;
-        createGrid(range.value);
+        createGrid(range.value, hideGridBtn.innerText == "Hide grid");
     });
 });
 // clear
 clearBtn.addEventListener('click', () => {
-    createGrid(range.value);
+    createGrid(range.value, hideGridBtn.innerText == "Hide grid");
 });
 // hide grid 
 hideGridBtn.addEventListener('click', () => {
-    const cells = document.querySelectorAll(".gridcell");
-    cells.forEach((cell) => {
-        cell.style.border = "none";
-    });
+    var cells = document.querySelectorAll(".gridcell");
+    if (hideGridBtn.innerText.toLowerCase() == "hide grid") {
+        cells.forEach((cell) => {
+            cell.style.border = "none";
+            hideGridBtn.innerText = "Show grid";
+        });
+    } else {
+        cells.forEach((cell) => {
+            cell.style.border = "1px solid black";
+            hideGridBtn.innerText = "Hide grid";
+        });
+    }
 });
+
+
