@@ -10,15 +10,17 @@ html {
   box-sizing: inherit;
 }
 body {
-  margin: 0;
   color: white;
   font-size: 18px;
 }
 h1 {
   margin: 10px;
+  text-align: center;
 }
 .main {
   display: flex;
+  justify-content: center;
+  gap: 100px;
 }
 .color-input {
   display: flex;
@@ -79,8 +81,9 @@ h1 {
 .divgrid {
   display: flex;
   flex-direction: column;
-  width: 400px;
-  height: 400px;
+  width: 500px;
+  height: 500px;
+  background: white;
 }
 .gridrow {
   display: flex;
