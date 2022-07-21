@@ -98,3 +98,8 @@ h1 {
   margin: 0;
   padding: 0;
 }
+.active {
+  color: rgb(44, 0, 0) !important;
+  background-color: rgb(255, 208, 0) !important;
+  border: 2px solid rgb(44, 0, 0) !important;
+}
