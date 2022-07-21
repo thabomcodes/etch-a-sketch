@@ -1,0 +1,17 @@
+.divgrid {
+  display: flex;
+}
+.gridrow {
+  display: flex;
+  flex-direction: column;
+}
+.gridcell {
+  border: 1px solid black;
+}
+
+.divgrid,
+.gridrow,
+.gridcell {
+  margin: 0;
+  padding: 0;
+}
