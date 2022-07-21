@@ -1,11 +1,62 @@
-body {
+html {
+  box-sizing: border-box;
   font-family: "Oswald", sans-serif;
-  margin: 0;
+  background-color: rgb(0, 15, 75);
 }
 *,
 *::before,
 *::after {
   font-family: inherit;
+  box-sizing: inherit;
+}
+body {
+  margin: 0;
+  color: white;
+}
+.main {
+  display: flex;
+}
+.color-input {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 25px;
+}
+#color {
+  outline: none;
+  border: none;
+  height: 300%;
+  width: 300%;
+  transform: translate(-5px, -5px);
+}
+.color-block {
+  overflow: hidden;
+  height: 50px;
+  width: 100px;
+  border-radius: 10px;
+}
+.modes {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 25px;
+}
+.extra {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.modes > button,
+.extra > button {
+  margin-bottom: 10px;
+  padding: 5px 15px;
+}
+.modes > button:last-child,
+.extra > button:last-child {
+  margin-bottom: 0;
+}
+.extra > label {
+  margin-bottom: 10px;
 }
 .divgrid {
   display: flex;
