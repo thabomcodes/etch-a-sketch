@@ -1,3 +1,17 @@
+//============ QUERY SLECTORS ====================
+const color = document.querySelector("input[type=color");
+// modes
+const colorModeBtn = document.querySelector("#color-mode");
+const hoverModeBtn = document.querySelector("#hover-mode");
+const rgbModeBtn = document.querySelector("#rgb-mode");
+const darkenModeBtn = document.querySelector("#darken-mode");
+const eraserModeBtn = document.querySelector("#eraser-mode");
+// extra
+const range = document.querySelector("#range");
+const gridSize = document.querySelector(".grid-size");
+const clearBtn = document.querySelector("#clear");
+const hideGridBtn = document.querySelector("#hide-grid");
+// grid
 const grid = document.querySelector(".divgrid");
 
 function createGrid(x) {
