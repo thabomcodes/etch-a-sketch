@@ -20,6 +20,7 @@ h1 {
 .main {
   display: flex;
   justify-content: center;
+  align-items: center;
   gap: 100px;
 }
 .color-input {
@@ -97,4 +98,11 @@ button:last-child {
   color: rgb(44, 0, 0) !important;
   background-color: rgb(255, 208, 0) !important;
   border: 2px solid rgb(44, 0, 0) !important;
+}
+.side {
+  font-size: 20px;
+}
+.side a {
+  text-decoration: none;
+  color: white;
 }
