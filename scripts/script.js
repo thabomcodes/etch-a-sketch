@@ -27,6 +27,7 @@ function getRandomColor() {
 
 grid10percentColor = []
 function draw(div) {
+
     if (mode == "color") {
         const r = parseInt(color.value.substr(1, 2), 16)
         const g = parseInt(color.value.substr(3, 2), 16)
@@ -38,33 +39,46 @@ function draw(div) {
             percent10[i] = Math.round(cellColor[i] * 0.1);
         }
         grid10percentColor[parseInt(div.id)] = percent10;
+        console.log(div.style.backgroundColor);
     }
     else if (mode == "rgb") {
         div.style.backgroundColor = getRandomColor();
+        var cellColor = div.style.backgroundColor.match(/([0-9]+)/g).map(Number);
+        var percent10 = [];
+        for (let i = 0; i < 3; i++) {
+            percent10[i] = Math.round(cellColor[i] * 0.1);
+        }
+        grid10percentColor[parseInt(div.id)] = percent10;
+        console.log(div.style.backgroundColor);
     }
-    else {
+    else if (mode == "darken") {
         if (div.style.backgroundColor == "") {
             div.style.backgroundColor = getRandomColor();
-            var cellColor = div.style.backgroundColor.match(/([0-9]+)/g).map(Number);
+            const cellColor = div.style.backgroundColor.match(/([0-9]+)/g).map(Number);
+
             var percent10 = [];
             for (let i = 0; i < 3; i++) {
                 percent10[i] = Math.round(cellColor[i] * 0.1);
             }
             grid10percentColor[parseInt(div.id)] = percent10;
-        } else {
-            var cellColor = div.style.backgroundColor;
-            console.log(cellColor + " " + div.id);
-            var rgb = cellColor.match(/([0-9]+)/g).map(Number);
+            console.log(div.style.backgroundColor + "if");
+        }
+        else {
+            var rgb = div.style.backgroundColor.match(/([0-9]+)/g).map(Number);
             let rgb10 = grid10percentColor[parseInt(div.id)];
-            console.log(rgb)
             let r = rgb[0] - rgb10[0];
             let g = rgb[1] - rgb10[1];
             let b = rgb[2] - rgb10[2];
             div.style.backgroundColor = `rgb(${r}, ${g}, ${b})`;
-            console.log(div.style.backgroundColor);
+            console.log(div.style.backgroundColor + "else");
         }
     }
+    else {
+        div.style.backgroundColor = "";
+        grid10percentColor[parseInt(div.id)] = [];
+    }
 }
+
 function createGrid(x, cellBorder = true) {
     // remove rows if any
     const rows = document.querySelectorAll(".gridrow");
@@ -97,54 +111,39 @@ function createGrid(x, cellBorder = true) {
     }
 }
 createGrid(range.value);
+previousEvent = false;
 
 //============= EVENT LISTENERS ================
+
+// EFFECTS
+
 function removeActive() {
     document.querySelectorAll(".modes button").forEach((button) => {
         button.className = "";
         mode = "";
     });
 }
+
 // buttons
 colorModeBtn.addEventListener('click', function () {
     removeActive()
     this.className = "active";
     mode = "color";
-    // EFFECTS
-    var cells = document.querySelectorAll(".gridcell");
-    for (const cell of cells) {
-        cell.addEventListener("mouseover", () => draw(cell), false);
-    }
 });
 rgbModeBtn.addEventListener('click', function () {
     removeActive();
     this.className = "active";
     mode = "rgb";
-    var cells = document.querySelectorAll(".gridcell");
-    // EFFECTS
-    for (const cell of cells) {
-        cell.addEventListener("mouseover", () => draw(cell), false);
-    }
 });
 darkenModeBtn.addEventListener('click', function () {
     removeActive();
     this.className = "active";
     mode = "darken";
-    var cells = document.querySelectorAll(".gridcell");
-    // EFFECTS
-    for (const cell of cells) {
-        cell.addEventListener("mouseover", () => draw(cell), false);
-    }
 });
 eraserModeBtn.addEventListener('click', function () {
     removeActive();
     this.className = "active";
     mode = "eraser";
-    var cells = document.querySelectorAll(".gridcell");
-    // EFFECTS
-    for (const cell of cells) {
-        cell.addEventListener("mouseover", () => draw(cell), false);
-    }
 });
 // range
 range.addEventListener('input', () => {
