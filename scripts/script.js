@@ -39,7 +39,7 @@ function draw(div) {
             percent10[i] = Math.round(cellColor[i] * 0.1);
         }
         grid10percentColor[parseInt(div.id)] = percent10;
-        console.log(div.style.backgroundColor);
+
     }
     else if (mode == "rgb") {
         div.style.backgroundColor = getRandomColor();
@@ -49,7 +49,6 @@ function draw(div) {
             percent10[i] = Math.round(cellColor[i] * 0.1);
         }
         grid10percentColor[parseInt(div.id)] = percent10;
-        console.log(div.style.backgroundColor);
     }
     else if (mode == "darken") {
         if (div.style.backgroundColor == "") {
@@ -61,7 +60,6 @@ function draw(div) {
                 percent10[i] = Math.round(cellColor[i] * 0.1);
             }
             grid10percentColor[parseInt(div.id)] = percent10;
-            console.log(div.style.backgroundColor + "if");
         }
         else {
             var rgb = div.style.backgroundColor.match(/([0-9]+)/g).map(Number);
@@ -70,7 +68,6 @@ function draw(div) {
             let g = rgb[1] - rgb10[1];
             let b = rgb[2] - rgb10[2];
             div.style.backgroundColor = `rgb(${r}, ${g}, ${b})`;
-            console.log(div.style.backgroundColor + "else");
         }
     }
     else {
